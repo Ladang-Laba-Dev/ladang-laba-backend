@@ -1,0 +1,36 @@
+{
+  "name": "ladang-laba-backend",
+  "version": "1.0.0",
+  "description": "a backend for ladang laba web app",
+  "main": "index.js",
+  "scripts": {
+    "start-dev": "nodemon main.js",
+    "start-prod": "node main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ladang-Laba-Dev/ladang-laba-backend.git"
+  },
+  "keywords": [
+    "backend",
+    "ladang-laba",
+    "node",
+    "express"
+  ],
+  "author": "Muhammad Sirojuddin, Ardika Anwar Arshal, Erna Riyanti, Kenez Adroo Ufairoh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ladang-Laba-Dev/ladang-laba-backend/issues"
+  },
+  "homepage": "https://github.com/Ladang-Laba-Dev/ladang-laba-backend#readme",
+  "dependencies": {
+    "express": "^4.21.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.15.0",
+    "eslint": "^9.15.0",
+    "globals": "^15.12.0",
+    "nodemon": "^3.1.7"
+  }
+}
