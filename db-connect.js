@@ -1,13 +1,14 @@
+require('dotenv').config()
 const mysql = require('mysql')
-const {dbHost, dbUsername, dbPassword, dbName, dbPort} = require('./config')
+
 //Create MySQL connection pool
 const pool = mysql.createPool({
     connectionLimit : 3,
-    host : dbHost,
-    port : dbPort,
-    user : dbUsername,
-    password : dbPassword,
-    database : dbName,
+    host : process.env.DB_HOST,
+    port : process.env.DB_PORT,
+    user : process.env.DB_USERNAME,
+    password : process.env.DB_PASSWORD,
+    database : process.env.DB_NAME,
     waitForConnections : true,
     maxIdle : 3,
     idleTimeout : 60000,
