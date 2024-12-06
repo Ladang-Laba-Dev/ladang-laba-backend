@@ -1,10 +1,11 @@
 const mysql = require('mysql')
 const pool = require('../db-connect')
-
+console.log("hello")
 const find = async (username, email) => {
     const statement = 'SELECT * FROM ?? WHERE username= ? OR email = ?'
     const value = ['users', username, email]
     const query = mysql.format(statement, value)
+    console.log(query)
     try{
         const result = await pool.query(query)
     }catch (error){
@@ -46,4 +47,5 @@ const remove = async (id) => {
         console.error(error)
     }
 }
+find('nidu', 'nidu@nidu.com')
 module.exports = {find, insert, update, remove}
