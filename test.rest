@@ -1,0 +1,17 @@
+POST http://localhost:4000/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "username":"msdn",
+    "password":"jirolupat",
+    "email":"nidu672@gmail.com"
+}
+###
+POST http://localhost:4000/register HTTP/1.1
+Content-Type: application/json
+
+{
+    "username":"msdn",
+    "password":"jirolupat",
+    "email":"nidu672@gmail.com"
+}
