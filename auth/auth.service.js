@@ -1,12 +1,12 @@
 const mysql = require('mysql')
 const pool = require('../db-connect')
-
 const find = async (username, email) => {
     const statement = 'SELECT * FROM ?? WHERE username= ? OR email = ?'
     const value = ['users', username, email]
     const query = mysql.format(statement, value)
     try{
         const result = await pool.query(query)
+        return result
     }catch (error){
         console.error(error)
     }
@@ -17,13 +17,16 @@ const insert = async (id, username, password, email) => {
         id,
         username: username,
         password: password,
-        emai: email
+        email: email
     }]
     const query = mysql.format(statement, value)
     try{
         const result = await pool.query(query)
+        console.log(result)
+        return {success:true, result}
     }catch (error){
         console.error(error)
+        return {success:false, error}
     }
 }
 const update = async (id, username, password, email) => {
@@ -32,6 +35,7 @@ const update = async (id, username, password, email) => {
     const query = mysql.format(statement, value)
     try{
         const result = await pool.query(query)
+        return result
     }catch (error){
         console.error(error)
     }
@@ -42,8 +46,10 @@ const remove = async (id) => {
     const query = mysql.format(statement, value)
     try{
         const result = await pool.query(query)
+        return result
     }catch (error){
         console.error(error)
     }
 }
+find('nidu', 'nidu@nidu.com')
 module.exports = {find, insert, update, remove}
