@@ -7,7 +7,7 @@ const register = async (req, res) => {
     const username = req.body.username
     const email = req.body.email
     const isAlreadyRegister = await find(username, email)
-    if (isAlreadyRegister.length===0) {
+    if (isAlreadyRegister.length>0) {
         return res.status(409).json({
             error:"Email or username already exists"
         })
@@ -29,7 +29,6 @@ const login = async (req, res) => {
     const {username, password, email} = req.body
     try{
         const savedCredential = await find(username, email)
-        console.log(savedCredential)
         const savedPass = savedCredential[0].password
         const match = await bcrypt.compare(password, savedPass)
         if(match){
@@ -46,6 +45,18 @@ const login = async (req, res) => {
         res.status(500).json({error:"Error logging in"})
     }
 }
+const search = async (req, res) => {
+    const {username, email} = req.body
+    try{
+        const user = await find(username, email)
+        return res.status(200).json({
+            message: "success",
+            data: user
+        })
+    }catch(error){
+        console.error(error)
+    }
+}
 module.exports={
-    register, login
+    register, login, search
 }
