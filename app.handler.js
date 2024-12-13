@@ -7,7 +7,7 @@ const search = async (req, res) => {
     try{
         const [user] = await find(username, email)
         return res.status(200).json({
-            success: "true",
+            success: true,
             message: "Search success",
             data: {
                 id: user.id,
@@ -18,7 +18,7 @@ const search = async (req, res) => {
         })
     }catch(error){
         console.error(error)
-        res.status(500).json({success: "false", error:"Error searching user"})
+        res.status(500).json({success: false, error:"Error searching user"})
     }
 }
 const getAllUser = async (req, res) => {
@@ -26,14 +26,14 @@ const getAllUser = async (req, res) => {
         const result = await getAll()
         if (result.success){
             return res.status(200).json({
-                success: "true",
+                success: true,
                 message: "Success in get all users",
                 data: result.rows
             })
         }
     }catch (error){
         console.error(error)
-        res.status(500).json({success: "false", error: "Error get all users"})
+        res.status(500).json({success: false, error: "Error get all users"})
     }
 }
 const updateUser = async (req, res) => {
@@ -44,13 +44,13 @@ const updateUser = async (req, res) => {
             const result = await update(id, username, hashPass, email)
             if (result.success){
                 res.status(200).json({
-                    success: "true",
+                    success: true,
                     message:"User updateded successfully"
                 })
             }
         }catch(error){
             console.error(error)
-            res.status(500).json({success: "false", error: "Error updating user"})
+            res.status(500).json({success: false, error: "Error updating user"})
         }
 }
 const removeUser = async (req, res) => {
@@ -59,14 +59,14 @@ const removeUser = async (req, res) => {
         const result = await remove(id)
         if (result.success){
             res.status(200).json({
-                success: "true",
+                success: true,
                 message:"User removed successfully",
                 data: result.result
             })
         }
     }catch (error){
         console.error(error)
-            res.status(500).json({success: "false", error: "Error removing user"})
+            res.status(500).json({success: false, error: "Error removing user"})
     }
 }
 module.exports={
