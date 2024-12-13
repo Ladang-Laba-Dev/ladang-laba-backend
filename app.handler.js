@@ -1,6 +1,26 @@
 const bcrypt = require('bcrypt')
 const {getAll,update, remove} = require('./app.service')
+const {find}=require('./auth/auth.service')
 
+const search = async (req, res) => {
+    const {username, email} = req.body
+    try{
+        const [user] = await find(username, email)
+        return res.status(200).json({
+            success: "true",
+            message: "Search success",
+            data: {
+                id: user.id,
+                username: user.username,
+                email: user.email,
+                created_at:user.created_at
+            }
+        })
+    }catch(error){
+        console.error(error)
+        res.status(500).json({success: "false", error:"Error searching user"})
+    }
+}
 const getAllUser = async (req, res) => {
     try{
         const result = await getAll()
@@ -50,5 +70,5 @@ const removeUser = async (req, res) => {
     }
 }
 module.exports={
-    getAllUser, updateUser, removeUser
+    search, getAllUser, updateUser, removeUser
 }
