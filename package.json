@@ -4,8 +4,8 @@
   "description": "a backend for ladang laba web app",
   "main": "index.js",
   "scripts": {
-    "start-dev": "nodemon main.js",
-    "start-prod": "node main.js",
+    "dev": "nodemon main.js",
+    "prod": "node main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
