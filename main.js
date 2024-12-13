@@ -11,10 +11,8 @@ const router = require('./app.routes')
 //use the middleware
 app.use(router)
 
-app.post('/', (req, res) => {
-    let body = req.body
-    console.log(body)
-    res.send("Welcome to Ladang Laba API Homepage")
+app.get('/', (req, res) => {
+    res.send("Welcome to Ladang Laba API Homepage. For API documentation please refer to: https://documenter.getpostman.com/view/32762069/2sAYHxnPZb")
 })
 
 app.listen(port,()=>{
