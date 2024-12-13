@@ -3,12 +3,11 @@ const {nanoid} = require('nanoid')
 const bcrypt = require('bcrypt')
 
 const register = async (req, res) => {
-    const password = req.body.password
-    const username = req.body.username
-    const email = req.body.email
+    const {username, password, email} = req.body
     const isAlreadyRegister = await find(username, email)
-    if (isAlreadyRegister.length===0) {
+    if (isAlreadyRegister.length>0) {
         return res.status(409).json({
+            success: "false",
             error:"Email or username already exists"
         })
     }else{
@@ -17,11 +16,11 @@ const register = async (req, res) => {
             const hashPass = await bcrypt.hash(password, 10)
             const result = await insert(id, username, hashPass, email)
             if (result.success){
-                res.status(201).json({message:"User registered successfully"})
+                res.status(201).json({success: "true", message:"User registered successfully"})
             }
         }catch(error){
             console.error(error)
-            res.status(500).json({error: "Error registering user"})
+            res.status(500).json({success: "false", error: "Error registering user"})
         }
     }
 }
@@ -29,23 +28,25 @@ const login = async (req, res) => {
     const {username, password, email} = req.body
     try{
         const savedCredential = await find(username, email)
-        console.log(savedCredential)
         const savedPass = savedCredential[0].password
         const match = await bcrypt.compare(password, savedPass)
         if(match){
             res.status(200).json({
+                success: "true",
                 message: "Login success"
             })
         }else{
             res.status(401).json({
+                success: "false",
                 message: "Invalid credentials"
             })
         }
     }catch(error){
         console.error(error)
-        res.status(500).json({error:"Error logging in"})
+        res.status(500).json({success: "false", error:"Error logging in"})
     }
 }
+
 module.exports={
     register, login
 }
