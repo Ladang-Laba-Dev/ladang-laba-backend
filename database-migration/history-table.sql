@@ -5,7 +5,7 @@
 DROP TABLE IF EXISTS `history`;
 
 CREATE TABLE `history` (
-  `id` int(9) unsigned NOT NULL AUTO_INCREMENT,
+  `id` varchar(255) NOT NULL,
   `crop_name` varchar(100) NOT NULL,
   `price` decimal(10,2) NOT NULL,
   `month` int(11) NOT NULL,

@@ -36,6 +36,52 @@ const remove = async (id) => {
         return {success:false, error}
     }
 }
+const getAllItems = async () => {
+    const sql = 'SELECT * FROM history'
+    try{
+        const [rows, fields] = await pool.execute(sql)
+        return {success:true, rows}
+    }catch (error){
+        console.error(error)
+        return {success:false, error}
+    }
+}
+const getItemById = async(id) => {
+    const sql = ' SELECT * FROM ?? WHERE ?? = ?'
+    const values = ['history', 'user_id', id.id]
+    const query = mysql.format(sql, values)
+    try{
+        const [rows, fields] = await pool.query(query)
+        return {success:true, rows}
+    }catch (error){
+        console.error(error)
+        return {success:false, error}
+    }
+}
+const addItem = async (id, cropName, price, month, userId) => {
+    const sql = 'INSERT INTO ?? SET ?'
+    const values = ['history', {id:id, crop_name: cropName, price: price, month: month, user_id:userId}]
+    const query = mysql.format(sql, values)
+    try{
+        const result = await pool.query(query)
+        return {success:true, result}
+    }catch (error){
+        console.error(error)
+        return {success:false, error}
+    }
+}
+const removeItem = async (id) => {
+    const sql = 'DELETE FROM ?? WHERE ?? = ?'
+    const value = ['history', 'id', id.id]
+    const query = mysql.format(sql, value)
+    try{
+        const result = await pool.query(query)
+        return {success:true, result}
+    }catch (error){
+        console.error(error)
+        return {success:false, error}
+    }
+}
 module.exports= {
-    getAll, update, remove
+    getAll, update, remove, getAllItems, getItemById, addItem, removeItem
 }
